@@ -1,9 +1,9 @@
+import org.hyperskill.hstest.dynamic.output.InfiniteLoopDetector;
 import org.hyperskill.hstest.stage.StageTest;
 import org.hyperskill.hstest.testcase.CheckResult;
 import org.hyperskill.hstest.testcase.SimpleTestCase;
 import org.hyperskill.hstest.testcase.TestCase;
 import org.hyperskill.hstest.testing.TestedProgram;
-import splitter.Main;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -14,14 +14,14 @@ import java.util.stream.Collectors;
 
 public class SharedBillsSplitterTest extends StageTest {
 
+    static {
+        InfiniteLoopDetector.setWorking(false);
+    }
+
     private static final String UNKNOWN_COMMAND = "Unknown command";
     public static final String EXIT_ERROR = "Your program should stop after exit command.";
     public static final String HELP_ERROR = "help command should print all commands line by line in natural order.";
     private static final String ILLEGAL_ARGUMENTS_ERROR = "Your program should handle exceptions in incorrect command arguments input";
-
-    public SharedBillsSplitterTest() {
-        super(Main.class);
-    }
 
     enum Commands {
         help,
@@ -35,7 +35,7 @@ public class SharedBillsSplitterTest extends StageTest {
     public List<TestCase> generate() {
         return List.of(
             new TestCase().setDynamicTesting(() -> {
-                TestedProgram main = new TestedProgram(Main.class);
+                TestedProgram main = new TestedProgram();
                 main.start();
                 main.execute(Commands.exit.toString());
                 if (!main.isFinished()) {
@@ -101,7 +101,7 @@ public class SharedBillsSplitterTest extends StageTest {
                 BigInteger keyBalanceBorrow = BigInteger.ZERO;
                 BigInteger keyBalanceRepay = BigInteger.ZERO;
 
-                TestedProgram main = new TestedProgram(Main.class);
+                TestedProgram main = new TestedProgram();
                 main.start();
                 for (int i = 0; i < 100; i++) {
                     String personFrom = persons.get(random.nextInt(persons.size()));
