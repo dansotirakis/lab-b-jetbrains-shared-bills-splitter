@@ -10,8 +10,14 @@ class FixingArithmeticException {
         int c = scanner.nextInt();
         int d = scanner.nextInt();
 
-        int result = a / ((b + c) / d);
+        try {
+            int result = a / ((b + c) / d);
+            System.out.println(result);
+        } catch (ArithmeticException arithmeticException) {
+            if (arithmeticException.getMessage().equals("/ by zero")) {
+                System.out.println("Division by zero!");
+            }
+        }
 
-        System.out.println(result);
     }
 }
