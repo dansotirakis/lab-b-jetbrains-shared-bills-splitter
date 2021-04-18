@@ -1,1 +1,1 @@
-lab-b-jetbrains-shared-bills-splitter
+lab-b-python-shared-bills-splitter
